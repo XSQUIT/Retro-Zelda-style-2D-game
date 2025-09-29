@@ -24,6 +24,12 @@ public class Player extends Entity {
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
         screenY = gp.screenHeight/2 - (gp.tileSize/2);
 
+        solidArea = new Rectangle();
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidArea.width = 32;
+        solidArea.height = 32;
+
         setDefaultValues();
         getPlayerImage();
         direction = "down";
@@ -50,6 +56,7 @@ public class Player extends Entity {
     }
 
     public void update() {
+        boolean moving = keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed;
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             spriteCounter++;
             if (spriteCounter > 15) {
@@ -62,19 +69,27 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
+        if(moving) {
+            if (keyH.upPressed) {
+                direction = "up";
+            } else if (keyH.downPressed) {
+                direction = "down";
+            } else if (keyH.rightPressed) {
+                direction = "right";
+            } else if (keyH.leftPressed) {
+                direction = "left";
+            }
+        }
+        collisionOn = false;
+        gp.cChecker.checkTile(this);
 
-        if (keyH.upPressed) {
-            direction = "up";
-            worldY -= speed;
-        } else if (keyH.downPressed) {
-            direction = "down";
-            worldY += speed;
-        } else if (keyH.rightPressed) {
-            direction = "right";
-            worldX += speed;
-        } else if (keyH.leftPressed) {
-            direction = "left";
-            worldX -= speed;
+        if (collisionOn == false && moving) {
+            switch (direction) {
+                case "up": worldY -= speed; break;
+                case "down": worldY += speed; break;
+                case "left": worldX -= speed; break;
+                case "right": worldX += speed; break;
+            }
         }
     }
 
