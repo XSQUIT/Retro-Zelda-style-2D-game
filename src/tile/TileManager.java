@@ -17,7 +17,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[10];
+        tile = new Tile[20];
         getTileImage();
         mapTileNum = new int [gp.maxWorldCol][gp.maxWorldRow];
         loadMap("/maps/world01.txt");
@@ -50,6 +50,24 @@ public class TileManager {
 
             tile[7] = new Tile();
             tile[7].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/dirt.png")));
+
+            tile[8] = new Tile();
+            tile[8].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/roadStraightHorizontal.png")));
+
+            tile[9] = new Tile();
+            tile[9].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/roadStraightVertical.png")));
+
+            tile[10] = new Tile();
+            tile[10].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/turnLeft.png")));
+
+            tile[11] = new Tile();
+            tile[11].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/turnRight.png")));
+
+            tile[12] = new Tile();
+            tile[12].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/turnLeftDown.png")));
+
+            tile[13] = new Tile();
+            tile[13].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/turnRightDown.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
